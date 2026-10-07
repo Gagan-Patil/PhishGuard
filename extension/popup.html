@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body { width: 360px; font-family: 'Inter', system-ui, sans-serif; margin: 0; background: #f8fafc; color: #0f172a; }
+        .header { background: linear-gradient(135deg, #4f46e5, #7c3aed); color: white; padding: 15px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .header h2 { margin: 0; font-size: 1.3rem; }
+        .content { padding: 20px; text-align: center; }
+        .gauge { width: 110px; height: 110px; border-radius: 50%; border: 12px solid #e2e8f0; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; font-size: 2.2rem; font-weight: bold; transition: 0.8s ease; }
+        .gauge.safe { border-color: #10b981; color: #10b981; }
+        .gauge.suspicious { border-color: #f59e0b; color: #f59e0b; }
+        .gauge.phishing { border-color: #ef4444; color: #ef4444; }
+        .verdict-label { font-size: 1.2rem; font-weight: 800; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 1px; }
+        .reasons { text-align: left; background: white; padding: 15px; border-radius: 10px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); margin-bottom: 15px; }
+        .reasons h3 { margin-top: 0; font-size: 1rem; color: #334155; }
+        ul { margin: 0; padding-left: 20px; color: #475569; font-size: 0.95rem; line-height: 1.5; }
+        .footer { font-size: 0.8rem; color: #94a3b8; border-top: 1px solid #e2e8f0; padding-top: 15px; }
+    </style>
+</head>
+<body>
+    <div class="header"><h2>🛡️ PhishGuard</h2></div>
+    <div class="content">
+        <div id="gauge" class="gauge">--</div>
+        <div id="verdict-text" class="verdict-label">Loading...</div>
+        
+        <div class="reasons">
+            <h3>Why this result?</h3>
+            <ul id="reasons-list"><li>Analyzing page...</li></ul>
+        </div>
+        
+        <div class="footer" id="latency">Latency: -- ms</div>
+    </div>
+    <script src="popup.js"></script>
+</body>
+</html>

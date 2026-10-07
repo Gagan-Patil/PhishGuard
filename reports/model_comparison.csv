@@ -1,0 +1,5 @@
+Model,Precision,Recall,F1,ROC-AUC,PR-AUC,Inf Time (ms)
+Logistic Regression,1.0,1.0,1.0,1.0,1.0,0.8843
+Random Forest,0.0,0.0,0.0,1.0,1.0,7.2544
+XGBoost,1.0,1.0,1.0,1.0,1.0,5.495
+LightGBM,0.0,0.0,0.0,0.5,0.5,1.1004

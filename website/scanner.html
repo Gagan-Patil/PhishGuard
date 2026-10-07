@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhishGuard Scanner</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" style="text-decoration: none; color: inherit;"><h2 style="margin: 0;">🛡️ PhishGuard</h2></a>
+    </nav>
+    <main class="container scanner-box">
+        <h2 style="font-size: 2.5rem;">Analyze a Suspicious URL</h2>
+        <p style="color: #64748b; margin-bottom: 30px;">Paste a link below to instantly check it against our machine learning model.</p>
+        
+        <input type="text" id="urlInput" placeholder="https://example.com" value="http://paypal.com.secure-login.xyz/verify?id=1">
+        <button onclick="scanUrl()" class="btn btn-primary" style="width: 100%; font-size: 1.2rem; padding: 15px;">Scan URL Now</button>
+        
+        <div id="resultBox" class="result card">
+            <div id="gauge" class="gauge">--</div>
+            <h3 id="verdict" style="text-transform: uppercase; font-size: 1.5rem; margin: 15px 0;">Waiting...</h3>
+            <div style="text-align: left; background: #f8fafc; padding: 15px; border-radius: 8px;">
+                <h4 style="margin-top: 0; color: #334155;">Explainable AI Findings:</h4>
+                <ul id="reasons" style="margin: 0; color: #475569; padding-left: 20px;"></ul>
+                <p id="latency" style="margin-bottom: 0; margin-top: 15px; font-size: 0.85rem; color: #94a3b8;"></p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        async function scanUrl() {
+            const url = document.getElementById('urlInput').value;
+            const resultBox = document.getElementById('resultBox');
+            const gauge = document.getElementById('gauge');
+            const verdict = document.getElementById('verdict');
+            const reasons = document.getElementById('reasons');
+            const latency = document.getElementById('latency');
+            
+            resultBox.style.display = 'block';
+            gauge.textContent = '...';
+            gauge.className = 'gauge';
+            
+            try {
+                // Call the FastAPI server running in VS Code
+                const response = await fetch('http://localhost:8000/predict', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ url: url })
+                });
+                
+                const data = await response.json();
+                
+                gauge.textContent = data.score;
+                gauge.className = 'gauge ' + data.verdict;
+                verdict.textContent = data.verdict;
+                verdict.style.color = data.verdict === 'phishing' ? '#ef4444' : (data.verdict === 'safe' ? '#10b981' : '#f59e0b');
+                
+                reasons.innerHTML = data.reasons.map(r => `<li>${r}</li>`).join('');
+                latency.textContent = `⚡ AI Inference Latency: ${data.latency_ms} ms`;
+            } catch (error) {
+                alert("Error connecting to API. Make sure your FastAPI terminal is running in VS Code.");
+            }
+        }
+    </script>
+</body>
+</html>

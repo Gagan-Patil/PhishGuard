@@ -1,0 +1,11 @@
+url,label,source,domain
+https://google.com,0,tranco,google.com
+https://netflix.com.payment-update.xyz,1,phishtank,payment-update.xyz
+https://github.com/explore,0,tranco,github.com
+https://update-apple-id.com/login,1,phishtank,update-apple-id.com
+https://wikipedia.org/wiki/Main_Page,0,tranco,wikipedia.org
+http://secure-banking-auth.net/path,1,phishtank,secure-banking-auth.net
+https://stackoverflow.com/questions,0,tranco,stackoverflow.com
+http://192.168.1.1/login.php,1,phishtank,192.168.1.1
+http://paypal.com.secure-login.xyz/verify?id=1,1,phishtank,secure-login.xyz
+https://bbc.co.uk/news,0,tranco,bbc.co.uk
